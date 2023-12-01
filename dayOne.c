@@ -19,44 +19,38 @@ Consider your entire calibration document. What is the sum of all of the calibra
 #include <string.h>
 
 int main(){
-    const int MAX_LEN = 50;
+    const int MAX_LEN = 100;
     FILE *file;
     char str[MAX_LEN];
+    int sum = 0;
 
     file = fopen("input.txt", "r");
     if(file==NULL){
         perror("Can't open file");
         return 1;
     }
-    int sum = 0;
+
     while (fgets(str, sizeof(str), file) != NULL) {
         int firstInt = 0, lastInt = 0;
-        char integer[MAX_LEN];
         int count = -1;
 
         for(int i = 0; str[i] != '\0'; i++){
             if(isdigit(str[i])){
                 count++;
-                integer[count] = str[i];
+                if(count == 0){
+                    firstInt = str[i] - '0';
+                }else if(count > 0){
+                    lastInt = str[i] - '0';
+                }
             }
         }
-        printf("%s \n", integer);
-        //Now we have a string full of integers named integer[]
-        //Catch the possiblity of there only being one int 
-        if(integer[0] != '\0'){
-            firstInt = integer[0];
-        }else if(integer[1] != '\0'){
-            for(int i = 0; integer[i] != '\0'; i++){
-                lastInt = integer[i];
-            }
-        }else{
-            lastInt = 0;
-        }
-        sum = sum + firstInt + lastInt;
-        
+
+        if(lastInt == 0){lastInt = firstInt;}
+        printf("firstInt: %d. lastInt: %d\n", firstInt, lastInt);
+        sum = sum + firstInt*10 + lastInt;
     }
-    printf("Sum of all ints is: %d\n", sum);
-       fclose(file);
+    printf("Sum of all the calibration values is: %d\n", sum);
+    fclose(file);
     return 0;
 }
 

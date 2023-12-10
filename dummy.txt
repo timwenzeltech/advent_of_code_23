@@ -1,0 +1,6 @@
+seightwozbjkfsgk5three1tcpbshgfzeightfive //expected 8, 5
+twothree9 //expected 2, 9
+1two3four5 //expected 1, 5
+tw1threefour55nine //expected 1, 9
+```
+
